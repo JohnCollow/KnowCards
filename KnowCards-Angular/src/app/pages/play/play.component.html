@@ -1,0 +1,11 @@
+<div id="card" (click)="showCard()">
+    <p>{{textCard}}</p>
+</div>
+
+<div class="buttons" *ngIf="turned">
+  <button (click)="nextCard()">Errei</button>
+  <button (click)="nextCard()">Difícil</button>
+  <button (click)="nextCard()">Normal</button>
+  <button (click)="nextCard()">Fácil</button>
+  <button (click)="nextCard()">Memorizado</button>
+</div>
