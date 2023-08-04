@@ -1,0 +1,65 @@
+import { Injectable } from '@angular/core';
+import { deck } from '../interfaces/deck';
+import { card } from '../interfaces/card';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DeckService {
+  constructor() {}
+
+  getATestDeck() {
+    const testDeck: deck = {
+      name: 'hiragana',
+      cards: [
+        { question: 'あ', response: 'a', difficulty: 1 },
+        { question: 'い', response: 'i', difficulty: 1 },
+        { question: 'う', response: 'u', difficulty: 1 },
+        { question: 'え', response: 'e', difficulty: 1 },
+        { question: 'お', response: 'o', difficulty: 1 },
+        { question: 'か', response: 'ka', difficulty: 1 },
+        { question: 'き', response: 'ki', difficulty: 1 },
+        { question: 'く', response: 'ku', difficulty: 1 },
+        { question: 'け', response: 'ke', difficulty: 1 },
+        { question: 'こ', response: 'ko', difficulty: 1 },
+        { question: 'さ', response: 'sa', difficulty: 1 },
+        { question: 'し', response: 'shi', difficulty: 1 },
+        { question: 'す', response: 'su', difficulty: 1 },
+        { question: 'せ', response: 'se', difficulty: 1 },
+        { question: 'そ', response: 'so', difficulty: 1 },
+        { question: 'た', response: 'ta', difficulty: 1 },
+        { question: 'ち', response: 'chi', difficulty: 1 },
+        { question: 'つ', response: 'tsu', difficulty: 1 },
+        { question: 'て', response: 'te', difficulty: 1 },
+        { question: 'と', response: 'to', difficulty: 1 },
+        { question: 'な', response: 'na', difficulty: 1 },
+        { question: 'に', response: 'ni', difficulty: 1 },
+        { question: 'ぬ', response: 'nu', difficulty: 1 },
+        { question: 'ね', response: 'ne', difficulty: 1 },
+        { question: 'の', response: 'no', difficulty: 1 },
+        { question: 'は', response: 'ha', difficulty: 1 },
+        { question: 'ひ', response: 'hi', difficulty: 1 },
+        { question: 'ふ', response: 'fu', difficulty: 1 },
+        { question: 'へ', response: 'he', difficulty: 1 },
+        { question: 'ほ', response: 'ho', difficulty: 1 },
+        { question: 'ま', response: 'ma', difficulty: 1 },
+        { question: 'み', response: 'mi', difficulty: 1 },
+        { question: 'む', response: 'mu', difficulty: 1 },
+        { question: 'め', response: 'me', difficulty: 1 },
+        { question: 'も', response: 'mo', difficulty: 1 },
+        { question: 'や', response: 'ya', difficulty: 1 },
+        { question: 'ゆ', response: 'yu', difficulty: 1 },
+        { question: 'よ', response: 'yo', difficulty: 1 },
+        { question: 'ら', response: 'ra', difficulty: 1 },
+        { question: 'り', response: 'ri', difficulty: 1 },
+        { question: 'る', response: 'ru', difficulty: 1 },
+        { question: 'れ', response: 're', difficulty: 1 },
+        { question: 'ろ', response: 'ro', difficulty: 1 },
+        { question: 'わ', response: 'wa', difficulty: 1 },
+        { question: 'を', response: 'wo', difficulty: 1 },
+        { question: 'ん', response: 'n', difficulty: 1 },
+      ],
+    };
+    return testDeck;
+  }
+}

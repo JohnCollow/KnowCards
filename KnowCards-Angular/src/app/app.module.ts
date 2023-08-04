@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PlayComponent } from './pages/play/play.component';
+import { DecksComponent } from './pages/decks/decks.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import { PlayComponent } from './pages/play/play.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    PlayComponent
+    PlayComponent,
+
+    DecksComponent
   ],
   imports: [
     BrowserModule,

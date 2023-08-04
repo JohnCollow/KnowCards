@@ -1,24 +1,35 @@
 header{
     border-bottom: 1px solid black;
-    background-color: #5C92C9;
+    background-color: #1D5D9B;
 }
 ul{
     display: flex;
     justify-content: space-around;
     list-style: none;
     margin: 1em;
+    gap: 2em;
+}
+
+.content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 
 
 
 a{
-    color: black;
+    font-weight: bold;
+    color: #F4D160;
     text-decoration: none;
+    transition: 0.2s;
+    padding:  0.3em;
+    border-radius: 0.3em;
 }
 
 a:hover{
-    background-color: black;
+    background-color: #FBEEAC;
 }
 
 h1{

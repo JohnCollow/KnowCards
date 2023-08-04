@@ -1,0 +1,41 @@
+.container{
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: 20% 20% auto;
+}
+
+.list{
+    background-color: green;
+    border: 2px solid black;
+    list-style: none;
+}
+
+.selected{
+    transition: 0.2s;
+}
+
+.selected:hover{
+    background-color: gray;
+    cursor: pointer;
+}
+
+#card-edit{
+    display: flex;
+}
+
+.card{
+    height: 40em;
+    width: 25em;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 1em auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+.card p{
+    text-align: center;
+    font-size: 2em;
+}

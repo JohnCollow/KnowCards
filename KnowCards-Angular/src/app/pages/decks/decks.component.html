@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="list">
+    <ul>
+      <li *ngFor="let deck of decks; let i = index">
+        <div class="selected" (click)="deckSelection(i)">{{ deck.name }}</div>
+      </li>
+    </ul>
+  </div>
+  <div class="list">
+    <li *ngFor="let card of cards; let i = index">
+      <div class="selected" (click)="cardSelection(i)">
+        {{ card.question }}
+      </div>
+    </li>
+  </div>
+  <div id="card-edit">
+    <div class="card"><p>{{cardQuestion}}</p></div>
+    <div class="card"><p>{{cardResponse}}</p></div>
+  </div>
+</div>
