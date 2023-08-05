@@ -62,4 +62,19 @@ export class DeckService {
     };
     return testDeck;
   }
+
+  hiraganaWordsTest() {
+    const testDeck: deck = {
+      name: 'hiragana words',
+      cards: [
+        { question: 'おはよう', response: 'olá!', difficulty: 1 },
+        { question: 'かぞく', response: 'Família', difficulty: 1 },
+        { question: 'ともだち', response: 'amigo', difficulty: 1 },
+        { question: 'いえ', response: 'lar', difficulty: 1 },
+        { question: 'いええ', response: 'não', difficulty: 1 },
+        { question: 'はい', response: 'sim', difficulty: 1 },
+      ],
+    };
+    return testDeck;
+  }
 }

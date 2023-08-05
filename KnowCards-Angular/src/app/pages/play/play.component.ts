@@ -37,7 +37,7 @@ export class PlayComponent implements OnInit{
   hardCount: number = 5;
   wrongCount: number = 3;
 
-  deck: deck = this.deckService.getATestDeck();
+  deck: deck = this.deckService.hiraganaWordsTest();
 
   textCard!: string;
 

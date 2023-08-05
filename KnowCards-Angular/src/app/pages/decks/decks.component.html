@@ -2,19 +2,36 @@
   <div class="list">
     <ul>
       <li *ngFor="let deck of decks; let i = index">
-        <div class="selected" (click)="deckSelection(i)">{{ deck.name }}</div>
+        <div class="selected" (click)="deckSelection(i)"><p>{{ deck.name }}</p></div>
       </li>
     </ul>
   </div>
   <div class="list">
     <li *ngFor="let card of cards; let i = index">
       <div class="selected" (click)="cardSelection(i)">
-        {{ card.question }}
+        <p>{{ card.question }}</p>
       </div>
     </li>
   </div>
   <div id="card-edit">
-    <div class="card"><p>{{cardQuestion}}</p></div>
-    <div class="card"><p>{{cardResponse}}</p></div>
+    <div class="card" (click)="edit('question')">
+      <p *ngIf="!editing.question; else questionTextBox">{{ cardQuestion }}</p>
+    </div>
+    <div class="card" (click)="edit('response')">
+      <p *ngIf="!editing.response; else responseTextBox">{{ cardResponse }}</p>
+    </div>
   </div>
 </div>
+<ng-template #questionTextBox>
+  <div id="text-template">
+    <textarea [(ngModel)]="questionTextBox_text" class="text-box"></textarea>
+    <button (click)="saveCard($event, 'question')">Salvar</button>
+  </div>
+</ng-template>
+
+<ng-template #responseTextBox>
+  <div id="text-template">
+    <textarea [(ngModel)]="responseTextBox_text" class="text-box"></textarea>
+    <button (click)="saveCard($event, 'response')">Salvar</button>
+  </div>
+</ng-template>

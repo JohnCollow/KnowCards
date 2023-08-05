@@ -12,6 +12,8 @@
 
 .selected{
     transition: 0.2s;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .selected:hover{
@@ -35,7 +37,42 @@
     justify-content: center;
     transition: 0.2s;
 }
+
 .card p{
     text-align: center;
     font-size: 2em;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.card:hover{
+    cursor: pointer;
+    background-color: gray;
+}
+
+.text-box{
+    height: 85%;
+    width: 95%;
+    resize: none;
+    box-sizing: border-box;
+    position: absolute;
+    right: 10px;
+    
+    
+}
+
+#text-template{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 90% auto;
+    position: relative;
+}
+
+button{
+    width: 3em;
+    height: 3em;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
 }
