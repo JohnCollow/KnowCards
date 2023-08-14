@@ -14,6 +14,9 @@ export default class Card extends BaseModel {
   @column()
   public difficulty:number
 
+  @column()
+  public deckId:number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

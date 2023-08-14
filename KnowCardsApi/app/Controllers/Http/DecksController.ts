@@ -3,13 +3,16 @@ import Deck from "App/Models/Deck";
 
 export default class DecksController {
   public async index() {
-    const decks = await Deck.all();
+    const decks = await Deck.query().preload('cards');
 
     return { data: decks };
   }
 
   public async show({ params }: HttpContextContract) {
     const deck = await Deck.findOrFail(params.id);
+
+    await deck.load('cards')
+
     return { data: deck };
   }
 

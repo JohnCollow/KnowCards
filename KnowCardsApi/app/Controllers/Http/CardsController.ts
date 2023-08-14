@@ -1,5 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+
 import Card from "App/Models/Card";
+import Deck from "App/Models/Deck";
 
 export default class CardsController {
   public async index() {
@@ -14,8 +16,12 @@ export default class CardsController {
     return { data: card };
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, params, response }: HttpContextContract) {
+    const deckId = params.id;
+    await Deck.findOrFail(deckId);
+
     const body = request.body();
+    body.deckId = deckId;
     const card = await Card.create(body);
     response.status(201);
 
