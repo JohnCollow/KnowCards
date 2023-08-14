@@ -18,15 +18,9 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from "@ioc:Adonis/Core/Route";
 
-Route.group(()=>{
-
-  Route.get('teste',()=>{
-    return {teste:"mensagem teste"}
-  })
-
-  
-
-}).prefix("/api")
-
+Route.group(() => {
+  Route.resource("/card", "CardsController").apiOnly();
+  Route.resource("/deck", "DecksController").apiOnly();
+}).prefix("/api");

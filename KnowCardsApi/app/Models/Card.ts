@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-import Deck from './Deck'
 
 export default class Card extends BaseModel {
   @column({ isPrimary: true })
