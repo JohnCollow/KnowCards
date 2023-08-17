@@ -4,6 +4,7 @@
       <li *ngFor="let deck of decks; let i = index">
         <div class="selected" (click)="deckSelection(i)"><p>{{ deck.name }}</p></div>
       </li>
+      <li (click)="addDeck()" class="selected create-new">Criar Novo Deck</li>
     </ul>
   </div>
   <div class="list">
@@ -12,6 +13,7 @@
         <p>{{ card.question }}</p>
       </div>
     </li>
+    <li (click)="addCard()" class="selected create-new">Criar Novo Card</li>
   </div>
   <div id="card-edit">
     <div class="card" (click)="edit('question')">

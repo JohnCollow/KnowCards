@@ -16,7 +16,7 @@ export class DecksComponent implements OnInit {
     response: false,
   };
   selectedCard!: card;
-
+  selectedDeckId!: number;
   cardQuestion: string = 'Selecione um deck para poder ver seus cards';
   cardResponse: string = '';
 
@@ -31,6 +31,8 @@ export class DecksComponent implements OnInit {
   }
 
   deckSelection(deckPosition: number) {
+    this.selectedDeckId = Number(this.decks[deckPosition].id);
+
     this.cards = this.decks[deckPosition].cards;
   }
 
@@ -63,7 +65,6 @@ export class DecksComponent implements OnInit {
     if (cardSide === 'question') {
       this.editing.question = false;
       this.selectedCard.question = this.questionTextBox_text;
-
     } else if (cardSide === 'response') {
       this.editing.response = false;
       this.selectedCard.response = this.responseTextBox_text;
@@ -82,6 +83,16 @@ export class DecksComponent implements OnInit {
     });
   }
 
+  addDeck() {
+    this.deckService.addDeck().subscribe((response) => {
+      this.decks.push(response.data);
+    });
+  }
+  addCard() {
+    this.deckService.addCard(this.selectedDeckId).subscribe((response) => {
+      this.cards.push(response.data);
+    });
+  }
   restartText() {
     this.cardQuestion = this.selectedCard.question;
     this.cardResponse = this.selectedCard.response;

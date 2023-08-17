@@ -20,6 +20,16 @@ export class DeckService {
     return this.http.get<response<deck[]>>(`${this.baseApiUrl}/api/deck`)
   }
 
+  addDeck():Observable<response<deck>>{
+    const deck:deck = {name:"Novo Deck",cards:[]}
+    return this.http.post<response<deck>>(`${this.baseApiUrl}/api/deck`,deck)
+  }
+
+  addCard(id:number):Observable<response<card>>{
+    const card:card = {question:"Novo Card",response:"Novo Card",difficulty:1};
+    return this.http.post<response<card>>(`${this.baseApiUrl}/api/card/${id}`,card)
+  }
+
   UpdateACard(card:card):Observable<response<card>>{
     console.log(card);
     return this.http.put<response<card>>(`${this.baseApiUrl}/api/card/${card.id}`,card)

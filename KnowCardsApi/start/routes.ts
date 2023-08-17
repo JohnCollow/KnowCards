@@ -23,5 +23,5 @@ import Route from "@ioc:Adonis/Core/Route";
 Route.group(() => {
   Route.resource("/card", "CardsController").apiOnly();
   Route.resource("/deck", "DecksController").apiOnly();
-  Route.post("/card/:id/create","CardsController.store");
+  Route.post("/card/:id","CardsController.store");
 }).prefix("/api");
