@@ -1,12 +1,29 @@
 import { Injectable } from '@angular/core';
 import { deck } from '../interfaces/deck';
 import { card } from '../interfaces/card';
+import { Observable } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
+import { response } from '../interfaces/response';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeckService {
-  constructor() {}
+  constructor(private http:HttpClient) {}
+
+  baseApiUrl:string="http://127.0.0.1:3333"
+
+  getAllDecks():Observable<response<deck[]>>{
+    return this.http.get<response<deck[]>>(`${this.baseApiUrl}/api/deck`)
+  }
+
+  UpdateACard(card:card):Observable<response<card>>{
+    console.log(card);
+    return this.http.put<response<card>>(`${this.baseApiUrl}/api/card/${card.id}`,card)
+  }
 
   getATestDeck() {
     const testDeck: deck = {
