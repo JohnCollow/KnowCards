@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { card } from 'src/app/interfaces/card';
 import { counter } from 'src/app/interfaces/counter';
 import { deck } from 'src/app/interfaces/deck';
 import { DeckService } from 'src/app/services/deck.service';
+
 
 // 0 = Easy
 // 1 = Normal
@@ -15,8 +16,10 @@ import { DeckService } from 'src/app/services/deck.service';
   styleUrls: ['./play.component.css'],
 })
 export class PlayComponent implements OnInit{
-
+  constructor(private deckService: DeckService) {}
+  @Input() selectedDeck!:deck;
   ngOnInit(): void {
+    
     this.counter = {
       easy: this.easyCount,
       hard: this.hardCount,
@@ -26,7 +29,7 @@ export class PlayComponent implements OnInit{
     this.textCard = this.card.question;
   }
 
-  constructor(private deckService: DeckService) {}
+
 
   turned: boolean = false;
   card!: card;
@@ -37,7 +40,7 @@ export class PlayComponent implements OnInit{
   hardCount: number = 5;
   wrongCount: number = 3;
 
-  deck: deck = this.deckService.hiraganaWordsTest();
+
 
   textCard!: string;
 
@@ -61,14 +64,14 @@ export class PlayComponent implements OnInit{
     let hasHard: boolean = false;
     let hasWrong: boolean = false;
 
-    this.deck.cards.forEach((card) => {
-      if (card.difficulty == 3) {
+    this.selectedDeck.cards.forEach((card) => {
+      if (card.difficulty === 3) {
         hasWrong = true;
       }
-      if (card.difficulty == 2) {
+      if (card.difficulty === 2) {
         hasHard = true;
       }
-      if (card.difficulty == 0) {
+      if (card.difficulty === 0) {
         hasEasy = true;
       }
     });
@@ -133,14 +136,18 @@ export class PlayComponent implements OnInit{
     }
     //Normal
     var filteredCards: card[] = this.filterCardsByDifficulty(1);
+    if (filteredCards.length === 0){
+      console.log("pegou um aleatorio");
+      
+      return this.selectedDeck.cards[this.randomNum(0,this.selectedDeck.cards.length-1)]
+    }
     console.log('Mostrando uma normal');
-
     return filteredCards[this.randomNum(0, filteredCards.length - 1)];
   }
 
   filterCardsByDifficulty(difficulty: number): card[] {
     var cardsToChoose: card[] = [];
-    this.deck.cards.forEach((item) => {
+    this.selectedDeck.cards.forEach((item) => {
       if (item.difficulty == difficulty) {
         console.log(item.difficulty + ' = ' + difficulty);
 
