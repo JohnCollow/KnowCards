@@ -25,6 +25,10 @@ export class DeckService {
     return this.http.post<response<deck>>(`${this.baseApiUrl}/api/deck`,deck)
   }
 
+  deleteDeck(id:number){
+    return this.http.delete(`${this.baseApiUrl}/api/deck/${id}`)
+  }
+
   addCard(id:number):Observable<response<card>>{
     const card:card = {question:"Novo Card",response:"Novo Card",difficulty:1};
     return this.http.post<response<card>>(`${this.baseApiUrl}/api/card/${id}`,card)

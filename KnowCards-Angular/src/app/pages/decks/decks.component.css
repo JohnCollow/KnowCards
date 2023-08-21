@@ -21,9 +21,16 @@
     transition: 0.2s;
     width: 100%;
     word-wrap: break-word;
+    display:grid;
+    grid-template-columns: auto 5% 5%;
 }
 
-.selected:hover{
+/* .selected:hover{
+    background-color: gray;
+    cursor: pointer;
+} */
+
+.selected p:hover{
     background-color: gray;
     cursor: pointer;
 }

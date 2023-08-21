@@ -93,6 +93,17 @@ export class DecksComponent implements OnInit {
       this.cards.push(response.data);
     });
   }
+
+  deleteDeck(index: number) {
+    this.deckService.deleteDeck(this.decks[index].id!).subscribe()
+    this.decks.splice(index, 1);
+    console.log(`Deck deletado com sucesso!: ${this.decks[index].name}`);
+  }
+
+  renameDeck(index: number) {
+    console.log(`Deck renomeado com sucesso!: ${this.decks[index].name}`);
+  }
+
   restartText() {
     this.cardQuestion = this.selectedCard.question;
     this.cardResponse = this.selectedCard.response;

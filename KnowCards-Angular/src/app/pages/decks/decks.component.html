@@ -2,17 +2,12 @@
   <div class="list">
     <ul>
       <li *ngFor="let deck of decks; let i = index">
-        <div class="selected" (click)="deckSelection(i)"><p>{{ deck.name }}</p></div>
-      </li>
+        <div class="selected"><p (click)="deckSelection(i)">{{ deck.name }}</p><p (click)="deleteDeck(i)">X</p><p (click)="renameDeck(i)">✓</p></div></li>
       <li (click)="addDeck()" class="selected create-new">Criar Novo Deck</li>
     </ul>
   </div>
   <div class="list">
-    <li *ngFor="let card of cards; let i = index">
-      <div class="selected" (click)="cardSelection(i)">
-        <p>{{ card.question }}</p>
-      </div>
-    </li>
+    <li *ngFor="let card of cards; let i = index"><div class="selected" (click)="cardSelection(i)"><p>{{ card.question }}</p></div></li>
     <li (click)="addCard()" class="selected create-new">Criar Novo Card</li>
   </div>
   <div id="card-edit">
