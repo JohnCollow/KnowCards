@@ -33,7 +33,9 @@ export class DecksComponent implements OnInit {
   deckSelection(deckPosition: number) {
     this.selectedDeckId = Number(this.decks[deckPosition].id);
 
-    this.cards = this.decks[deckPosition].cards;
+
+    
+    this.cards = this.decks[deckPosition].cards;   
   }
 
   cardSelection(cardPosition: number) {
@@ -85,19 +87,32 @@ export class DecksComponent implements OnInit {
 
   addDeck() {
     this.deckService.addDeck().subscribe((response) => {
-      this.decks.push(response.data);
+      const deck:deck = {name:response.data.name,cards:[],id:response.data.id}
+      this.decks.push(deck);
     });
   }
   addCard() {
-    this.deckService.addCard(this.selectedDeckId).subscribe((response) => {
-      this.cards.push(response.data);
-    });
+    if(this.selectedDeckId !== -1){
+      this.deckService.addCard(this.selectedDeckId).subscribe((response) => {
+
+        this.cards.push(response.data);
+        
+      });
+    }
+
   }
 
   deleteDeck(index: number) {
-    this.deckService.deleteDeck(this.decks[index].id!).subscribe()
+    this.deckService.deleteDeck(this.decks[index].id!).subscribe();
+    if (this.decks[index].id === this.selectedDeckId) {
+      this.cardQuestion = 'Selecione um deck para poder ver seus cards';
+      this.cardResponse = '';
+      this.cards = []
+      this.selectedDeckId = -1;
+    }
+
+
     this.decks.splice(index, 1);
-    console.log(`Deck deletado com sucesso!: ${this.decks[index].name}`);
   }
 
   renameDeck(index: number) {
