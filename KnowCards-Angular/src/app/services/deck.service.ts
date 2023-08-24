@@ -29,9 +29,17 @@ export class DeckService {
     return this.http.delete(`${this.baseApiUrl}/api/deck/${id}`)
   }
 
+  renameDeck(id:number,newName:string):Observable<response<deck>>{
+    return this.http.put<response<deck>>(`${this.baseApiUrl}/api/deck/${id}`,{name:newName})
+  }
+
   addCard(id:number):Observable<response<card>>{
     const card:card = {question:"Novo Card",response:"Novo Card",difficulty:1};
     return this.http.post<response<card>>(`${this.baseApiUrl}/api/card/${id}`,card)
+  }
+
+  deleteCard(id:number){
+    return this.http.delete(`${this.baseApiUrl}/api/card/${id}`);
   }
 
   UpdateACard(card:card):Observable<response<card>>{

@@ -37,5 +37,7 @@ export default class DecksController {
     deck.name = body.name;
 
     deck.save();
+
+    return {message:"Deck Atualizado com sucesso",data:deck}
   }
 }

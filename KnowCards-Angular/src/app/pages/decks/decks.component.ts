@@ -11,14 +11,20 @@ import { DeckService } from 'src/app/services/deck.service';
 export class DecksComponent implements OnInit {
   constructor(private deckService: DeckService) {}
 
-  editing: { question: boolean; response: boolean } = {
+  editing: { question: boolean; response: boolean; deck: boolean } = {
     question: false,
     response: false,
+    deck: false,
   };
+
+  deckToRename: number = -1;
+
   selectedCard!: card;
   selectedDeckId!: number;
   cardQuestion: string = 'Selecione um deck para poder ver seus cards';
   cardResponse: string = '';
+
+  deckEditText: string = '';
 
   questionTextBox_text: string = this.cardQuestion;
   responseTextBox_text: string = this.cardResponse;
@@ -32,10 +38,9 @@ export class DecksComponent implements OnInit {
 
   deckSelection(deckPosition: number) {
     this.selectedDeckId = Number(this.decks[deckPosition].id);
-
-
-    
-    this.cards = this.decks[deckPosition].cards;   
+    this.deckToRename = -1;
+    this.editing.deck = false;
+    this.cards = this.decks[deckPosition].cards;
   }
 
   cardSelection(cardPosition: number) {
@@ -87,19 +92,13 @@ export class DecksComponent implements OnInit {
 
   addDeck() {
     this.deckService.addDeck().subscribe((response) => {
-      const deck:deck = {name:response.data.name,cards:[],id:response.data.id}
+      const deck: deck = {
+        name: response.data.name,
+        cards: [],
+        id: response.data.id,
+      };
       this.decks.push(deck);
     });
-  }
-  addCard() {
-    if(this.selectedDeckId !== -1){
-      this.deckService.addCard(this.selectedDeckId).subscribe((response) => {
-
-        this.cards.push(response.data);
-        
-      });
-    }
-
   }
 
   deleteDeck(index: number) {
@@ -107,16 +106,46 @@ export class DecksComponent implements OnInit {
     if (this.decks[index].id === this.selectedDeckId) {
       this.cardQuestion = 'Selecione um deck para poder ver seus cards';
       this.cardResponse = '';
-      this.cards = []
+      this.cards = [];
       this.selectedDeckId = -1;
     }
-
-
     this.decks.splice(index, 1);
   }
 
-  renameDeck(index: number) {
-    console.log(`Deck renomeado com sucesso!: ${this.decks[index].name}`);
+  editDeck(index: number) {
+    this.deckToRename = index;
+    this.editing.deck = true;
+    this.deckEditText = this.decks[index].name;
+  }
+
+  cancelNameEdit() {
+    this.deckToRename = -1;
+  }
+
+  renameDeck(index:number) {
+    this.deckService.renameDeck(this.decks[index].id!,this.deckEditText).subscribe((deck)=>{
+      this.decks[index].name = deck.data.name;
+    })
+    this.deckToRename = -1;
+  }
+
+  addCard() {
+    if (this.selectedDeckId !== -1) {
+      this.deckService.addCard(this.selectedDeckId).subscribe((response) => {
+        this.cards.push(response.data);
+      });
+    }
+  }
+
+  deleteCard(index: number) {
+    const id = this.cards[index].id!;
+    if (this.selectedCard === this.cards[index]) {
+      this.cardQuestion = 'Selecione um deck para poder ver seus cards';
+      this.cardResponse = '';
+    }
+    this.deckService.deleteCard(id).subscribe();
+
+    this.cards.splice(index, 1);
   }
 
   restartText() {

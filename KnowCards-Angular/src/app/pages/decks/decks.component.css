@@ -1,81 +1,84 @@
-.container{
+.container {
     background-color: antiquewhite;
     display: grid;
     grid-template-columns: 20% 20% auto;
 }
 
-.list{
+.list {
     background-color: green;
     border: 2px solid black;
     list-style: none;
 }
 
-.create-new{
+.create-new {
     border-top: 2px solid black;
     border-bottom: 2px solid black;
     font-weight: bold;
     text-align: center;
 }
 
-.selected{
+.selected {
     transition: 0.2s;
     width: 100%;
     word-wrap: break-word;
-    display:grid;
-    grid-template-columns: auto 5% 5%;
+    display: grid;
+    grid-template-columns: 90% auto auto;
 }
 
-/* .selected:hover{
-    background-color: gray;
-    cursor: pointer;
-} */
-
-.selected p:hover{
+.selected p:hover,.selected img:hover {
     background-color: gray;
     cursor: pointer;
 }
 
-#card-edit{
+.selected img {
+    height: 1.1em;
+    width: .9em;
+}
+
+.edit-buttons {
+    display: grid;
+    gap: .1em;
+    grid-template-columns: 50% 50%;
+}
+
+#card-edit {
     display: flex;
 }
 
-.card{
+.card {
     height: 40em;
     width: 25em;
     border: 1px solid black;
     border-radius: 10px;
     margin: 1em auto;
-
     display: flex;
     align-items: center;
     justify-content: center;
     transition: 0.2s;
 }
 
-.card p{
+.card p {
     text-align: center;
     font-size: 2em;
     word-wrap: break-word;
     width: 100%;
 }
 
-.card:hover{
+.card:hover {
     cursor: pointer;
     background-color: gray;
 }
 
-.text-box{
+.text-box {
     height: 85%;
     width: 95%;
     resize: none;
     box-sizing: border-box;
     position: absolute;
     right: 10px;
-    
-    
 }
 
-#text-template{
+#text-template {
     height: 100%;
     width: 100%;
     display: grid;
@@ -83,7 +86,7 @@
     position: relative;
 }
 
-button{
+button {
     width: 3em;
     height: 3em;
     position: absolute;
