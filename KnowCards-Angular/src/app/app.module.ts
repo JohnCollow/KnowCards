@@ -9,6 +9,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { PlayComponent } from './pages/play/play.component';
 import { DecksComponent } from './pages/decks/decks.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -19,12 +24,16 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     PlayComponent,
 
-    DecksComponent
+    DecksComponent,
+     ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

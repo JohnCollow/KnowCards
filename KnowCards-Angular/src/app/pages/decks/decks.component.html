@@ -1,17 +1,41 @@
+<app-confirm-dialog (mensagem)="dialogFunc($event)" *ngIf="dialogIsOpen" class="dialog-panel"></app-confirm-dialog>
+<div *ngIf="dialogIsOpen" class="blackScreen"></div>
 <div class="container">
   <div class="list">
+    <!-- Decks -->
     <ul>
       <li *ngFor="let deck of decks; let i = index">
-        <div class="selected" (click)="deckSelection(i)"><p>{{ deck.name }}</p></div>
+        <div class="selected">
+          <p *ngIf="(!editing.deck) || (i !== deckToRename); else deckRename" (click)="deckSelection(i)">{{ deck.name }}</p>
+          
+          <div class="edit-buttons" *ngIf="(!editing.deck) || (i !== deckToRename); else editButtons">
+            <img (click)="openDialog(i)" src="assets/trash.png" alt="trash-can-icon">
+            <img (click)="editDeck(i)" src="assets/pencil.png" alt="Pencil-icon">
+          </div>
+          <ng-template #editButtons>
+            <div class="edit-buttons">
+              <img *ngIf="(editing.deck) || (i === deckToRename)" (click)="cancelNameEdit()" src="assets/x.png" alt="trash-can-icon">
+              <img *ngIf="(editing.deck) || (i === deckToRename)" (click)="renameDeck(i)" src="assets/ok.png" alt="Pencil-icon">
+            </div>
+          </ng-template>
+          <ng-template #deckRename>
+            <input [(ngModel)]="deckEditText" (keydown.enter)="renameDeck(i)">
+          </ng-template>
+            
+        </div>
       </li>
+      <li (click)="addDeck()" class="selected create-new">Criar Novo Deck</li>
     </ul>
   </div>
   <div class="list">
+    <!-- Cards -->
     <li *ngFor="let card of cards; let i = index">
-      <div class="selected" (click)="cardSelection(i)">
-        <p>{{ card.question }}</p>
+      <div class="selected">
+        <p  (click)="cardSelection(i)">{{ card.question }}</p>
+        <p (click)="deleteCard(i)">X</p>
       </div>
     </li>
+    <li (click)="addCard()" class="selected create-new">Criar Novo Card</li>
   </div>
   <div id="card-edit">
     <div class="card" (click)="edit('question')">

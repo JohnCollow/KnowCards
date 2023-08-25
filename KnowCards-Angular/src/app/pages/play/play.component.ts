@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { card } from 'src/app/interfaces/card';
 import { counter } from 'src/app/interfaces/counter';
 import { deck } from 'src/app/interfaces/deck';
@@ -14,8 +14,9 @@ import { DeckService } from 'src/app/services/deck.service';
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.css'],
 })
-export class PlayComponent implements OnInit{
-
+export class PlayComponent implements OnInit {
+  constructor(private deckService: DeckService) {}
+  @Input() selectedDeck!: deck;
   ngOnInit(): void {
     this.counter = {
       easy: this.easyCount,
@@ -26,8 +27,6 @@ export class PlayComponent implements OnInit{
     this.textCard = this.card.question;
   }
 
-  constructor(private deckService: DeckService) {}
-
   turned: boolean = false;
   card!: card;
 
@@ -36,8 +35,6 @@ export class PlayComponent implements OnInit{
   easyCount: number = 12;
   hardCount: number = 5;
   wrongCount: number = 3;
-
-  deck: deck = this.deckService.hiraganaWordsTest();
 
   textCard!: string;
 
@@ -61,14 +58,14 @@ export class PlayComponent implements OnInit{
     let hasHard: boolean = false;
     let hasWrong: boolean = false;
 
-    this.deck.cards.forEach((card) => {
-      if (card.difficulty == 3) {
+    this.selectedDeck.cards.forEach((card) => {
+      if (card.difficulty === 3) {
         hasWrong = true;
       }
-      if (card.difficulty == 2) {
+      if (card.difficulty === 2) {
         hasHard = true;
       }
-      if (card.difficulty == 0) {
+      if (card.difficulty === 0) {
         hasEasy = true;
       }
     });
@@ -133,14 +130,46 @@ export class PlayComponent implements OnInit{
     }
     //Normal
     var filteredCards: card[] = this.filterCardsByDifficulty(1);
-    console.log('Mostrando uma normal');
 
-    return filteredCards[this.randomNum(0, filteredCards.length - 1)];
+    //Caso não tenha normal e os contadores ainda não estejam no 0
+    if (filteredCards.length === 0) {
+      const thereAreEasyCards = this.filterCardsByDifficulty(0).length > 0;
+      const thereAreHardCards = this.filterCardsByDifficulty(2).length > 0;
+      const thereAreWrongCards = this.filterCardsByDifficulty(3).length > 0;
+      while (
+        this.counter.easy > 0 &&
+        this.counter.hard > 0 &&
+        this.counter.wrong > 0
+      ) {
+        if (thereAreEasyCards === true) {
+          this.counter.easy -= 1;
+          if (this.counter.easy === 0) {
+            break;
+          }
+        }
+        if (thereAreHardCards === true) {
+          this.counter.hard -= 1;
+          if (this.counter.hard === 0) {
+            break;
+          }
+        }
+        if (thereAreWrongCards === true) {
+          this.counter.wrong -= 1;
+          if (this.counter.wrong === 0) {
+            break;
+          }
+        }
+      }
+      return this.chooseCard();
+    } else {
+      console.log('Mostrando uma normal');
+      return filteredCards[this.randomNum(0, filteredCards.length - 1)];
+    }
   }
 
   filterCardsByDifficulty(difficulty: number): card[] {
     var cardsToChoose: card[] = [];
-    this.deck.cards.forEach((item) => {
+    this.selectedDeck.cards.forEach((item) => {
       if (item.difficulty == difficulty) {
         console.log(item.difficulty + ' = ' + difficulty);
 

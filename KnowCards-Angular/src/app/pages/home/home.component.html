@@ -1,1 +1,9 @@
-<button (click)="beginToLearn()">Começar</button>
+<div *ngIf="!play" class="menu">
+  <ul class="item-list">
+    <li (click)="start(i)" class="item" *ngFor="let deck of decks;let i = index">{{deck.name}}</li>
+    <a href="decks"> <li class="item"><strong>Criar novo Deck</strong></li></a>
+  </ul>
+</div>
+<div *ngIf="play" class="play">
+    <app-play [selectedDeck]="selectedDeck"></app-play>
+</div>

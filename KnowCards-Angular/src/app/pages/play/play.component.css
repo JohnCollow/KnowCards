@@ -12,8 +12,8 @@
 }
 
 #card:hover{
-    background-color: rgb(173, 173, 173);
     cursor: pointer;
+    background-color: gray;
 }
 
 .buttons{
@@ -27,6 +27,9 @@ button:hover{
     cursor: pointer;
 }
 
-p{
-    font-size: 4em;
+#card p{
+    text-align: center;
+    font-size: 2em;
+    word-wrap: break-word;
+    width: 100%;
 }
