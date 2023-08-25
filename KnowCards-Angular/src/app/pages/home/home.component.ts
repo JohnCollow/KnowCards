@@ -21,7 +21,12 @@ export class HomeComponent implements OnInit {
   }
 
   start(index:number) {
-    this.selectedDeck = this.decks[index]
-    this.play= true;
+
+    if(this.decks[index].cards.length === 0){
+      alert("Este deck está vazio, selecione outro ou crie cards para este deck")
+    }else{
+      this.selectedDeck = this.decks[index]
+      this.play = true;
+    }
   }
 }
