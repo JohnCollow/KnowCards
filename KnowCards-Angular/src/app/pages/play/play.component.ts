@@ -4,7 +4,6 @@ import { counter } from 'src/app/interfaces/counter';
 import { deck } from 'src/app/interfaces/deck';
 import { DeckService } from 'src/app/services/deck.service';
 
-
 // 0 = Easy
 // 1 = Normal
 // 2 = Hard
@@ -15,11 +14,10 @@ import { DeckService } from 'src/app/services/deck.service';
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.css'],
 })
-export class PlayComponent implements OnInit{
+export class PlayComponent implements OnInit {
   constructor(private deckService: DeckService) {}
-  @Input() selectedDeck!:deck;
+  @Input() selectedDeck!: deck;
   ngOnInit(): void {
-    
     this.counter = {
       easy: this.easyCount,
       hard: this.hardCount,
@@ -29,8 +27,6 @@ export class PlayComponent implements OnInit{
     this.textCard = this.card.question;
   }
 
-
-
   turned: boolean = false;
   card!: card;
 
@@ -39,8 +35,6 @@ export class PlayComponent implements OnInit{
   easyCount: number = 12;
   hardCount: number = 5;
   wrongCount: number = 3;
-
-
 
   textCard!: string;
 
@@ -136,13 +130,41 @@ export class PlayComponent implements OnInit{
     }
     //Normal
     var filteredCards: card[] = this.filterCardsByDifficulty(1);
-    if (filteredCards.length === 0){
-      console.log("pegou um aleatorio");
-      
-      return this.selectedDeck.cards[this.randomNum(0,this.selectedDeck.cards.length-1)]
+
+    //Caso não tenha normal e os contadores ainda não estejam no 0
+    if (filteredCards.length === 0) {
+      const thereAreEasyCards = this.filterCardsByDifficulty(0).length > 0;
+      const thereAreHardCards = this.filterCardsByDifficulty(2).length > 0;
+      const thereAreWrongCards = this.filterCardsByDifficulty(3).length > 0;
+      while (
+        this.counter.easy > 0 &&
+        this.counter.hard > 0 &&
+        this.counter.wrong > 0
+      ) {
+        if (thereAreEasyCards === true) {
+          this.counter.easy -= 1;
+          if (this.counter.easy === 0) {
+            break;
+          }
+        }
+        if (thereAreHardCards === true) {
+          this.counter.hard -= 1;
+          if (this.counter.hard === 0) {
+            break;
+          }
+        }
+        if (thereAreWrongCards === true) {
+          this.counter.wrong -= 1;
+          if (this.counter.wrong === 0) {
+            break;
+          }
+        }
+      }
+      return this.chooseCard();
+    } else {
+      console.log('Mostrando uma normal');
+      return filteredCards[this.randomNum(0, filteredCards.length - 1)];
     }
-    console.log('Mostrando uma normal');
-    return filteredCards[this.randomNum(0, filteredCards.length - 1)];
   }
 
   filterCardsByDifficulty(difficulty: number): card[] {
