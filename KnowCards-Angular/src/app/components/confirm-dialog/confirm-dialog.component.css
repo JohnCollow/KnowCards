@@ -1,0 +1,9 @@
+.buttons-group{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5em;
+}
+
+button{
+    margin-right: 1em;
+}

@@ -11,17 +11,14 @@ import { DeckService } from 'src/app/services/deck.service';
 export class DecksComponent implements OnInit {
   constructor(private deckService: DeckService) {}
 
-  editing: { question: boolean; response: boolean; deck: boolean } = {
-    question: false,
-    response: false,
-    deck: false,
-  };
-
+  dialogIsOpen: boolean = false;
   deckToRename: number = -1;
+  deckToDeleteIndex: number = -1;
 
   selectedCard!: card;
   selectedDeckId!: number;
-  cardQuestion: string = 'Selecione um deck para poder ver seus cards';
+  cardQuestion: string =
+    'Selecione um deck para poder ver seus cards ou crie um novo';
   cardResponse: string = '';
 
   deckEditText: string = '';
@@ -31,6 +28,26 @@ export class DecksComponent implements OnInit {
 
   decks: deck[] = [];
   cards: card[] = [];
+
+  editing: { question: boolean; response: boolean; deck: boolean } = {
+    question: false,
+    response: false,
+    deck: false,
+  };
+
+  openDialog(index: number) {
+    this.dialogIsOpen = true;
+    this.deckToDeleteIndex = index;
+  }
+
+  dialogFunc(message: any) {
+    this.dialogIsOpen = false;
+    if (message === 'confirm') {
+      this.deleteDeck(this.deckToDeleteIndex);
+      this.deckToDeleteIndex = -1;
+    } else if (message === 'cancel') {
+    }
+  }
 
   ngOnInit(): void {
     this.getAllDecks();
@@ -122,10 +139,12 @@ export class DecksComponent implements OnInit {
     this.deckToRename = -1;
   }
 
-  renameDeck(index:number) {
-    this.deckService.renameDeck(this.decks[index].id!,this.deckEditText).subscribe((deck)=>{
-      this.decks[index].name = deck.data.name;
-    })
+  renameDeck(index: number) {
+    this.deckService
+      .renameDeck(this.decks[index].id!, this.deckEditText)
+      .subscribe((deck) => {
+        this.decks[index].name = deck.data.name;
+      });
     this.deckToRename = -1;
   }
 

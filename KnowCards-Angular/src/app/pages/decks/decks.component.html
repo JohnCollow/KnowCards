@@ -1,3 +1,5 @@
+<app-confirm-dialog (mensagem)="dialogFunc($event)" *ngIf="dialogIsOpen" class="dialog-panel"></app-confirm-dialog>
+<div *ngIf="dialogIsOpen" class="blackScreen"></div>
 <div class="container">
   <div class="list">
     <!-- Decks -->
@@ -7,11 +9,9 @@
           <p *ngIf="(!editing.deck) || (i !== deckToRename); else deckRename" (click)="deckSelection(i)">{{ deck.name }}</p>
           
           <div class="edit-buttons" *ngIf="(!editing.deck) || (i !== deckToRename); else editButtons">
-            <img (click)="deleteDeck(i)" src="assets/trash.png" alt="trash-can-icon">
+            <img (click)="openDialog(i)" src="assets/trash.png" alt="trash-can-icon">
             <img (click)="editDeck(i)" src="assets/pencil.png" alt="Pencil-icon">
           </div>
-
-
           <ng-template #editButtons>
             <div class="edit-buttons">
               <img *ngIf="(editing.deck) || (i === deckToRename)" (click)="cancelNameEdit()" src="assets/x.png" alt="trash-can-icon">
@@ -59,7 +59,3 @@
     <button (click)="saveCard($event, 'response')">Salvar</button>
   </div>
 </ng-template>
-
-
-
-
