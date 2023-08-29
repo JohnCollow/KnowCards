@@ -2,7 +2,7 @@
     background-color: rgb(255, 250, 243);
     display: grid;
     grid-template-columns: 20% 20% auto;
-    height: 100%;
+    min-height: 80vh;
 }
 
 .list {

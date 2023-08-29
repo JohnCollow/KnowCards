@@ -1,13 +1,12 @@
-<p>{{counter.easy}}</p>
-<p>{{counter.hard}}</p>
-<p>{{counter.wrong}}</p>
 <div id="card" (click)="showCard()">
-    <p>{{textCard}}</p>
+  <p>{{ textCard }}</p>
 </div>
 
-<div class="buttons" *ngIf="turned">
-  <button (click)="nextCard(0)">Fácil</button>
-  <button (click)="nextCard(1)">Normal</button>
-  <button (click)="nextCard(2)">Difícil</button>
-  <button (click)="nextCard(3)">Errei</button>
+<div class="buttons-bar">
+  <div class="buttons" *ngIf="turned">
+    <button (click)="nextCard(0)">Fácil</button>
+    <button (click)="nextCard(1)">Normal</button>
+    <button (click)="nextCard(2)">Difícil</button>
+    <button (click)="nextCard(3)">Errei</button>
+  </div>
 </div>

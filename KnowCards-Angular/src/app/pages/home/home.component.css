@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 80vh;
     background-color: rgb(255, 250, 243);
-    height: 100%;
 }
 
 /* Estilos para a lista de itens */
