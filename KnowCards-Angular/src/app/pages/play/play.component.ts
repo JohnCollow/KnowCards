@@ -17,7 +17,9 @@ import { DeckService } from 'src/app/services/deck.service';
 export class PlayComponent implements OnInit {
   constructor(private deckService: DeckService) {}
   @Input() selectedDeck!: deck;
+  originalDeck!:deck;
   ngOnInit(): void {
+    this.originalDeck = JSON.parse(JSON.stringify(this.selectedDeck));
     this.counter = {
       easy: this.easyCount,
       hard: this.hardCount,
@@ -171,13 +173,24 @@ export class PlayComponent implements OnInit {
     var cardsToChoose: card[] = [];
     this.selectedDeck.cards.forEach((item) => {
       if (item.difficulty == difficulty) {
-        console.log(item.difficulty + ' = ' + difficulty);
-
         cardsToChoose.push(item);
       }
     });
-    console.log('dificuldade:' + difficulty + ' | ' + cardsToChoose.length);
     return cardsToChoose;
+  }
+
+  saveProgress(){
+    let cardsToUpdate:card[] = [];
+    for (let i = 0; i < this.selectedDeck.cards.length; i++) {
+      if (this.selectedDeck.cards[i].difficulty != this.originalDeck.cards[i].difficulty){
+
+        
+        cardsToUpdate.push(this.selectedDeck.cards[i])
+      }
+    }
+    
+    this.deckService.UpdateDifficulty(cardsToUpdate).subscribe((response)=>{console.log(response.data);
+    })
   }
 
   randomNum(min: number, max: number) {

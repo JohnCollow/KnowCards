@@ -43,8 +43,16 @@ export class DeckService {
   }
 
   UpdateACard(card:card):Observable<response<card>>{
-    console.log(card);
     return this.http.put<response<card>>(`${this.baseApiUrl}/api/card/${card.id}`,card)
+  }
+
+  UpdateDifficulty(cards:card[]):Observable<response<card[]>>{
+    let cardsData:{id:number,difficulty:number}[] = [];
+    
+    cards.forEach((card)=>{
+      cardsData.push({id:card.id!,difficulty:card.difficulty})
+    })
+    return this.http.put<response<card[]>>(`${this.baseApiUrl}/api/card/${-1}`,cardsData)
   }
 
   getATestDeck() {

@@ -34,7 +34,7 @@ export default class CardsController {
       return { message: "Cards Criados com sucesso!", data: createdCards };
     } else {
       if (body.question && body.response && body.difficulty) {
-         body.deckId = deckId;
+        body.deckId = deckId;
         const card = await Card.create(body);
         response.status(201);
         return { Message: "Card Registrado com sucesso", data: card };
@@ -49,16 +49,30 @@ export default class CardsController {
   }
 
   public async update({ request, params }: HttpContextContract) {
-    const card = await Card.findOrFail(params.id);
-
     const body = request.body();
+    let cards:Card[] = [];
+      if (Array.isArray(body)) {
+        await Promise.all(body.map(async (cardData) => {
+          try {
+            const card = await Card.findOrFail(cardData.id);
+            card.difficulty = cardData.difficulty;
+            await card.save();
+            cards.push(card);
+          } catch (error) {
+            console.error(`Erro ao atualizar o card ${cardData.id}: ${error.message}`);
+          }
+        }));
+        return { message: "Dificuldade das cartas atualizada com sucesso!", data: cards };
+    } else {
+      const card = await Card.findOrFail(params.id);
 
-    card.question = body.question;
-    card.response = body.response;
-    card.difficulty = body.difficulty;
+      card.question = body.question;
+      card.response = body.response;
+      card.difficulty = body.difficulty;
 
-    await card.save();
+      await card.save();
 
-    return { message: "Carta atualizada com sucesso!", data: card };
+      return { message: "Carta atualizada com sucesso!", data: card };
+    }
   }
 }

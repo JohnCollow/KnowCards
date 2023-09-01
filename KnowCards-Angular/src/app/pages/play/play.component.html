@@ -9,4 +9,7 @@
     <button (click)="nextCard(2)">Difícil</button>
     <button (click)="nextCard(3)">Errei</button>
   </div>
+  <div class="buttons" *ngIf="!turned">
+    <button (click)="saveProgress()">Salvar Progresso</button>
+  </div>
 </div>

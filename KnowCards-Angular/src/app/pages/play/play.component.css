@@ -19,6 +19,9 @@
     background-color: #1D5D9B;
     height: 2em;
     border-radius: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .buttons{
