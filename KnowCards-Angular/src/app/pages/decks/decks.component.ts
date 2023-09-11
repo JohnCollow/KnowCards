@@ -87,6 +87,10 @@ export class DecksComponent implements OnInit {
       return;
     }
     if (cardSide === 'question') {
+      if (this.equalQuestions()) {
+        alert('já possui essa questão!');
+        return;
+      }
       this.editing.question = false;
       this.selectedCard.question = this.questionTextBox_text;
     } else if (cardSide === 'response') {
@@ -99,6 +103,16 @@ export class DecksComponent implements OnInit {
       console.log(`Card: ${JSON.stringify(response.data)}`);
     });
     this.restartText();
+  }
+
+  equalQuestions(): boolean {
+    let equalCard: boolean = false;
+    this.cards.forEach((card) => {
+      if (this.questionTextBox_text === card.question) {
+        equalCard = true;
+      }
+    });
+    return equalCard;
   }
 
   getAllDecks() {
