@@ -108,7 +108,7 @@ export class DecksComponent implements OnInit {
   equalQuestions(): boolean {
     let equalCard: boolean = false;
     this.cards.forEach((card) => {
-      if (this.questionTextBox_text === card.question) {
+      if (this.questionTextBox_text === card.question && this.questionTextBox_text !== this.selectedCard.question) {
         equalCard = true;
       }
     });
